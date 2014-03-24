@@ -1,5 +1,5 @@
 <?php
 
-print_r(get_declared_classes());
+require_once 'vendor/autoload.php';
 
 $runner->addExtension(new Atoum\PraspelExtension\Manifest());

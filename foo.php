@@ -2,5 +2,6 @@
 
 require 'vendor/autoload.php';
 
-var_dump(HOA);
+print_r(get_declared_classes());
+
 var_dump(new Atoum\PraspelExtension\Manifest());

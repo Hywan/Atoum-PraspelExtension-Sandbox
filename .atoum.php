@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . DIRECTORY_SEPARATOR .
-             'vendor' . DIRECTORY_SEPARATOR .
-             'autoload.php';
+print_r(get_declared_classes());
 
-//$runner->addExtension(new Atoum\PraspelExtension\Manifest());
+$runner->addExtension(new Atoum\PraspelExtension\Manifest());

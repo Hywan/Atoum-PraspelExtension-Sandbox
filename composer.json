@@ -1,0 +1,13 @@
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/jubianchi/atoum"
+        }
+    ],
+    "require": {
+        "atoum/atoum"            : "dev-extension",
+        "atoum/praspel-extension": "dev-master"
+    },
+    "minimum-stability": "dev"
+}

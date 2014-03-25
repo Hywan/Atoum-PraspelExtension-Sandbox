@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "atoum/atoum"            : "dev-experimentation",
+        "atoum/atoum"            : "dev-extension",
         "atoum/praspel-extension": "dev-master"
     },
     "minimum-stability": "dev"

@@ -2,9 +2,13 @@
 
 require_once 'vendor/autoload.php';
 
-\mageekguy\atoum\instrumentation\stream\cache::setCacheDirectory('/tmp');
+use mageekguy\atoum\instrumentation\stream\cache;
 
-$runner->addExtension(new Atoum\PraspelExtension\Manifest());
-$runner->disableXDebugCodeCoverage();
-$runner->enableInstrumentation()
-       ->disableMoleInstrumentation();
+cache::setCacheDirectory('/tmp');
+
+$runner
+    ->disableXDebugCodeCoverage()
+    ->enableInstrumentation()
+        ->disableMoleInstrumentation()
+    ->addExtension(new Atoum\PraspelExtension\Manifest())
+;

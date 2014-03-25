@@ -21,4 +21,9 @@ class Bar {
 
         return true;
     }
+
+    public function uncovered ( ) {
+
+        return null;
+    }
 }

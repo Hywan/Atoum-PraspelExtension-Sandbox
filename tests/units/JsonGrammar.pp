@@ -31,70 +31,49 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 //
-// Grammar \Hoa\Math\Arithmetic.
+// Grammar \Hoa\Json\Grammar.
 //
-// Provide a grammar for arithmetic expressions.
+// Provide grammar for JSON. Please, see <http://json.org> or RFC4627.
 //
-// @author     Stéphane Py <py.stephane1@gmail.com>
-// @author     Sébastien Houze <s@verylastroom.com>
 // @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
-// @copyright  Copyright © 2007-2014 Stéphane Py, Sébastien Houze, Ivan Enderlin.
+// @copyright  Copyright © 2007-2014 Ivan Enderlin.
 // @license    New BSD License
 //
 
 
-%skip   space     \s
-%token  bracket_  \(
-%token _bracket   \)
-%token  comma     ,
-%token  number    (0|[1-9]\d*)(\.\d+)?
-//([eE][\+\-]?\d+)?
-%token  plus      \+
-%token  minus     \-
-//|−
-%token  pow       \*\*
-%token  times     \*
-//|×
-%token  div       /
-//|÷
-%token  percent   %
-%token  constant  [A-Z_]+[A-Z0-9_]+
-%token  id        \w+
+%skip   space           \s
 
-expression:
-    primary()
-    ( ( ::plus:: #addition | ::minus:: #substraction ) expression() )?
+%token  true            true
+%token  false           false
+%token  null            null
+%token  quote_          "                             -> string
+%token  string:escaped  \\(["\\/bfnrt]|u[0-9a-fA-F]{4})
+%token  string:string   [^"\\]+
+%token  string:_quote   "                             -> default
+%token  brace_          {
+%token _brace           }
+%token  bracket_        \[
+%token _bracket         \]
+%token  colon           :
+%token  comma           ,
+%token  number          \-?(0|[1-9]\d*)(\.\d+)?([eE][\+\-]?\d+)?
 
-primary:
-    term()
-    (
-        (
-            ::times::   #multiplication
-          | ::div::     #division
-//          | ::pow::     #power
-//          | ::percent:: #modulo
-        )
-        expression()
-    )?
+value:
+    <true> | <false> | <null> | string() | object() | array() | number()
 
-term:
-    ( ::bracket_:: expression() ::_bracket:: )
-  | number()
-//  | constant()
-//  | variable()
-  | ( ::minus:: #negative | ::plus:: ) term()
-//  | function()
+string:
+    ::quote_::
+    <string>
+    ::_quote::
 
 number:
     <number>
 
-constant:
-    <constant>
+#object:
+    ::brace_:: pair() ( ::comma:: pair() )* ::_brace::
 
-#variable:
-    <id>
+#pair:
+    string() ::colon:: value()
 
-#function:
-    <id> ::bracket_::
-    ( expression() ( ::comma:: expression() )* )?
-    ::_bracket::
+#array:
+    ::bracket_:: value() ( ::comma:: value() )* ::_bracket::

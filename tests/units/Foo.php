@@ -35,33 +35,35 @@ class stdClass extends \atoum\test {
             $this->boolean(true)->isTrue();
     }
 
-    public function testMath ( ) {
+    public function testJson ( ) {
 
-        $sampler = new \Hoa\Compiler\Llk\Sampler\BoundedExhaustive(
-            \Hoa\Compiler\Llk\Llk::load(new \Hoa\File\Read(__DIR__ . DS .  'Grammar.pp')),
+        $json = $this->realdom->grammar(__DIR__ . DS . 'JsonGrammar.pp');
+
+        foreach($this->sampleMany($json, 10) as $json) {
+
+            json_decode($json);
+
+            $this->integer(json_last_error())
+                 ->isEqualTo(JSON_ERROR_NONE);
+        }
+    }
+
+    public function testJsonExhaustively ( ) {
+
+        $compiler = \Hoa\Compiler\Llk\Llk::load(new \Hoa\File\Read(__DIR__ . DS .  'JsonGrammar.pp'));
+        $sampler  = new \Hoa\Compiler\Llk\Sampler\BoundedExhaustive(
+            $compiler,
             new \Hoa\Regex\Visitor\Isotropic(new \Hoa\Math\Sampler\Random()),
             5
         );
         $visitor  = new \Hoa\Math\Visitor\Arithmetic();
-        $compiler = \Hoa\Compiler\Llk\Llk::load(new \Hoa\File\Read(__DIR__ . DS .  'Grammar.pp'));
 
-        foreach($sampler as $i => $data) {
+        foreach($sampler as $json) {
 
-            try {
+            json_decode($json);
 
-                $x = $visitor->visit($compiler->parse($data));
-            }
-            catch ( \Exception $e ) { continue; }
-
-            eval('$y = ' . $data . ';');
-
-            $x = (float) $x;
-            $y = (float) $y;
-
-            if($x !== $y)
-                continue;
-
-            $this->float($x)->isNearlyEqualTo($y);
+            $this->integer(json_last_error())
+                 ->isEqualTo(JSON_ERROR_NONE);
         }
     }
 }

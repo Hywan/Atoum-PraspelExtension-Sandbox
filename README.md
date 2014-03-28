@@ -13,9 +13,9 @@ between industrial and research worlds.
 
 This is a sandbox for a [PhD thesis](https://github.com/Hywan/PhdThesis)
 experimentation. It uses the
-[`Atoum\PraspelExtension`](https://github.com/Hywan/Atoum-PraspelExtension).
-This latter introduces [Praspel](http://github.com/hoaproject/Praspel) inside
-atoum.
+[`Atoum\PraspelExtension`](http://central.hoa-project.net/Resource/Contributions/Atoum/PraspelExtension).
+This latter introduces [Praspel](http://central.hoa-project.net/Library/Praspel)
+inside atoum.
 
 ## Install
 

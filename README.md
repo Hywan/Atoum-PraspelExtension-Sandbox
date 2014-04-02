@@ -102,5 +102,5 @@ Different documentations can be found on the website:
 
 ## License
 
-Hoa, along with this extension, is under the NewÂ BSDÂ License (BSD-3-Clause).
+Hoa, along with this extension, is under the New BSD License (BSD-3-Clause).
 Please, see [`LICENSE`](http://hoa-project.net/LICENSE).
